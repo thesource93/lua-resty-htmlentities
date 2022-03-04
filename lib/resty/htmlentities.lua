@@ -54,11 +54,18 @@ end
 
 
 function _M.decode(entities)
-    local buf = ffi_new("char[?]", #entities)
-    local size = libhtmlentities.entities_decode_html(buf, entities, #entities)
+    local l_entities = ""
+
+    if entities == nil then
+      local l_entities = ""
+    else
+      local l_entities = entities
+    end
+
+    local buf = ffi_new("char[?]", #l_entities)
+    local size = libhtmlentities.entities_decode_html(buf, entities, #l_entities)
 
     return ffi_string(buf, size)
 end
-
 
 return _M
